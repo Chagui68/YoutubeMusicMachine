@@ -1,0 +1,39 @@
+# ─────────────────────────────────────────────
+# YoutubeMusicMachine Configuration
+# ─────────────────────────────────────────────
+#
+# LavaPlayer con YoutubeAudioSourceManager integrado
+# resuelve URLs y búsquedas de YouTube sin necesidad
+# de servicios externos. Lavalink y API bridge son
+# OPCIONALES y solo para casos avanzados.
+
+# Lavalink (WebSocket) — OPCIONAL
+# Si tienes tu propio nodo Lavalink v4, configúralo aquí.
+lavalink:
+  nodes: []
+
+# API REST bridge — OPCIONAL
+# Solo si quieres un backend Python propio (yt-dlp).
+api:
+  url: ""
+
+audio:
+  sample-rate: 48000
+  channels: 2
+  format: "pcm_s16le"
+  frame-duration-ms: 20
+
+audio-range:
+  max-distance: 32
+  fade-start: 24
+
+machine:
+  energy-buffer: 100000
+  energy-per-second: 512
+  update-interval-ticks: 20
+
+debug: false
+
+voicechat:
+  show-recommendation: true
+  recommendation-permission: "youtubemusic.admin"

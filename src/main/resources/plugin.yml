@@ -1,0 +1,32 @@
+name: YoutubeMusicMachine
+version: '${project.version}'
+main: com.github.youtubemusic.main.YoutubeMusicMachineMain
+api-version: '1.21'
+authors: [Chagui68]
+description: Plays YouTube music through Slimefun machine with Simple Voice Chat
+depend:
+  - Slimefun
+softdepend:
+  - voicechat
+
+commands:
+  playmusic:
+    description: Reproduce música en la máquina que estás mirando
+    usage: /playmusic <url o búsqueda>
+    permission: youtubemusic.use
+    aliases: [pm]
+  stopmusic:
+    description: Detiene la música en la máquina que estás mirando
+    usage: /stopmusic
+    permission: youtubemusic.use
+    aliases: [sm]
+  musicinfo:
+    description: Muestra información de la canción actual
+    usage: /musicinfo
+    permission: youtubemusic.use
+    aliases: [mi]
+
+permissions:
+  youtubemusic.use:
+    description: Permite usar las máquinas de música
+    default: true
