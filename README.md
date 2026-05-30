@@ -1,36 +1,36 @@
 # YouTube Music Machine
 
-Reproduce música de YouTube en tu servidor de Minecraft con audio 3D (Simple Voice Chat) o chat normal.
+Play YouTube music on your Minecraft server with 3D audio (Simple Voice Chat) or regular chat.
 
-## Requisitos
+## Requirements
 
-- **Servidor**: Spigot/Paper 1.20.x+
+- **Server**: Spigot/Paper 1.20.x+
 - **Java**: 21+
-- **Dependencia obligatoria**: Slimefun4
-- **Dependencia opcional**: Simple Voice Chat (para audio 3D)
+- **Required dependency**: Slimefun4
+- **Optional dependency**: Simple Voice Chat (for 3D audio)
 
-## Instalación
+## Installation
 
-1. Colocar `youtube-music-machine.jar` en `plugins/`
-2. Asegurarse de que Slimefun4 esté instalado
-3. (Opcional) Instalar Simple Voice Chat para audio 3D
-4. Reiniciar el servidor
+1. Place `youtube-music-machine.jar` in `plugins/`
+2. Make sure Slimefun4 is installed
+3. (Optional) Install Simple Voice Chat for 3D audio
+4. Restart the server
 
-### Configuración de YouTube (requerido)
+### YouTube Setup (required)
 
-El plugin usa **yt-dlp** (se descarga automáticamente) para extraer audio de YouTube. YouTube requiere autenticación, necesitas un archivo `cookies.txt`:
+The plugin uses **yt-dlp** (auto-downloaded) to extract audio from YouTube. YouTube requires authentication, you need a `cookies.txt` file:
 
-1. Instalar extensión [cookies.txt](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc) en Chrome/Firefox
-2. Visitar [youtube.com](https://youtube.com) (iniciado sesión en tu cuenta de Google)
-3. Hacer clic en la extensión → Exportar cookies (Netscape format)
-4. Subir el archivo a `plugins/YoutubeMusicMachine/cookies.txt`
-5. Reiniciar el servidor
+1. Install the [cookies.txt](https://chromewebstore.google.com/detail/get-cookiestxt-locally/cclelndahbckbenkjhflpdbgdldlbecc) extension in Chrome/Firefox
+2. Visit [youtube.com](https://youtube.com) (signed in to your Google account)
+3. Click the extension → Export cookies (Netscape format)
+4. Upload the file to `plugins/YoutubeMusicMachine/cookies.txt`
+5. Restart the server
 
-> Las cookies expiran periodicamente. Si deja de funcionar, exporta cookies nuevas.
+> Cookies expire periodically. If it stops working, export fresh cookies.
 
-### Configuración Lavalink (opcional)
+### Lavalink Setup (optional)
 
-Si tienes un servidor Lavalink v4, puedes configurarlo en `config.yml`:
+If you have a Lavalink v4 server, configure it in `config.yml`:
 
 ```yaml
 lavalink:
@@ -40,58 +40,58 @@ lavalink:
       password: "youshallnotpass"
 ```
 
-Si no tienes Lavalink, deja la sección vacía o elimínala.
+If you don't have Lavalink, leave the section empty or remove it.
 
-## Uso
+## Usage
 
-### Comandos
+### Commands
 
-| Comando | Descripción |
+| Command | Description |
 |---------|-------------|
-| `/playmusic <nombre o URL>` | Busca y reproduce música de YouTube |
-| `/stopmusic` | Detiene la música |
-| `/musicinfo` | Muestra información de la canción actual |
+| `/playmusic <name or URL>` | Search and play music from YouTube |
+| `/stopmusic` | Stop the music |
+| `/musicinfo` | Show info about the current song |
 
-### Permisos
+### Permissions
 
-| Permiso | Descripción |
-|---------|-------------|
-| `youtubemusic.use` | Acceso a los comandos del plugin |
+| Permission | Description |
+|------------|-------------|
+| `youtubemusic.use` | Access to plugin commands |
 
-### Máquina Slimefun
+### Slimefun Machine
 
-- Crea la **YouTube Music Machine** desde la guía de Slimefun
-- Colócala en el mundo y haz clic para abrir la interfaz
-- Escribe el nombre de una canción o URL de YouTube
+- Create the **YouTube Music Machine** from the Slimefun guide
+- Place it in the world and click to open the interface
+- Type a song name or YouTube URL
 
-## Arquitectura
+## Architecture
 
 ```
-Jugador: /playmusic "Bohemian Rhapsody"
+Player: /playmusic "Bohemian Rhapsody"
     ↓
-yt-dlp (binario, auto-descargado)
-    ↓ Busca en YouTube y obtiene URL de stream de audio
+yt-dlp (binary, auto-downloaded)
+    ↓ Searches YouTube and gets audio stream URL
     ↓
 LavaPlayer (HttpAudioSourceManager)
-    ↓ Decodifica el stream de audio
+    ↓ Decodes the audio stream
     ↓
-Simple Voice Chat API → Audio 3D espacial
-    (o chat normal si no hay VoiceChat)
+Simple Voice Chat API → 3D spatial audio
+    (or regular chat if no VoiceChat)
 ```
 
-### Fallbacks de resolución
+### Resolution Fallbacks
 
-El plugin intenta múltiples métodos en secuencia:
+The plugin tries multiple methods in sequence:
 
-1. **yt-dlp** con cookies.txt (método principal)
-2. **Lavalink** si está configurado y conectado (más rápido, ~200ms)
-3. **Piped API** (fallback REST)
-4. **Invidious API** (fallback REST)
+1. **yt-dlp** with cookies.txt (primary method)
+2. **Lavalink** if configured and connected (faster, ~200ms)
+3. **Piped API** (REST fallback)
+4. **Invidious API** (REST fallback)
 
-## Desarrollo
+## Development
 
 ```bash
 mvn -o package -DskipTests
 ```
 
-El JAR se genera en `target/`.
+The JAR is generated in `target/`.
